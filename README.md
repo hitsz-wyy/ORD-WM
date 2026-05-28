@@ -1,6 +1,6 @@
 # ORD-WM
 
-This is the repository that contains source code for the [ORD-WM website](https://github.com/hitsz-wyy/ORD-WM).
+This is the repository that contains source code for the [ORD-WM website](https://hitsz-wyy.github.io/ORD-WM).
 
 ORD-WM: Learning Object-Centric Rigid Dynamics for 3D World Modeling in Robotic Manipulation.
 
