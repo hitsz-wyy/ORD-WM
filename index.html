@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Learning Object-Centric Rigid Dynamics for 3D World Modeling in Robotic Manipulation.">
+  <meta name="keywords" content="Robotic Manipulation, 3D World Models, Object-Centric Dynamics, Rigid Dynamics">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ORD-WM: Learning Object-Centric Rigid Dynamics for 3D World Modeling in Robotic Manipulation</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/figures/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">ORD-WM: Learning Object-Centric Rigid Dynamics for 3D World Modeling in Robotic Manipulation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Anonymous Authors
+            <!-- <span class="author-block">
+              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
+            </span> -->
+          </div>
+
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Washington,</span>
+            <span class="author-block"><sup>2</sup>Google Research</span>
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link.
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser"
+           src="./static/figures/overall.png"
+           alt="ORD-WM overview"
+           style="width: 100%; height: auto;">
+      <h2 class="subtitle teaser-caption">
+        In contrast to video-based rollout and point-based scene-flow prediction, which may suffer from visual artifacts, shape drift, or object-level inconsistency, <strong>ORD-WM</strong> performs multi-step prediction by analytically applying predicted object-wise SE(3) updates to geometry-aware object latents composed of 3D vector features, preserving object geometry while updating pose. This latent-space rollout enables real-world object motion prediction and closed-loop model predictive control (MPC), where candidate actions are evaluated by their predicted effects on object states.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            World models provide robots with a predictive mechanism for reasoning about how actions change object states in manipulation tasks.
+            However, existing image-based and dense 3D world models do not explicitly impose object-level rigid motion, leaving rigid-object geometry preservation to be learned implicitly and making multi-step rollouts susceptible to shape drift or object-level motion inconsistency.
+            To address this, we propose <strong>ORD-WM</strong>, a 3D world model that learns object-centric rigid dynamics for robotic manipulation.
+            ORD-WM learns an SDF-supervised vector-neuron variational autoencoder whose encoder maps each object point cloud into a geometry-aware latent representation composed of 3D vector features, and predicts action-conditioned object-wise SE(3) motion increments.
+            Rather than generating unconstrained next latent states, ORD-WM analytically applies predicted object-wise rigid transformations to the current latent states, separating persistent object geometry from pose changes.
+            Experiments show that ORD-WM enables stable, geometry-preserving multi-step prediction and supports efficient closed-loop model predictive control in both simulation and real-world manipulation scenarios.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+      <!-- Visual Effects. -->
+      <!-- <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Visual Effects</h2>
+          <p>
+            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
+            would be impossible without nerfies since it would require going through a wall.
+          </p>
+          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/dollyzoom-stacked.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div> -->
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <!-- <div class="column">
+        <h2 class="title is-3">Matting</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              As a byproduct of our method, we can also solve the matting problem by ignoring
+              samples that fall outside of a bounding box during rendering.
+            </p>
+            <video id="matting-video" controls playsinline height="100%">
+              <source src="./static/videos/matting.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div> -->
+    <!--/ Matting. -->
+
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <!-- <h2 class="title is-3">Method</h2>
+        <img id="method"
+           src="./static/images/framework.png"
+           alt="Method framework"
+           style="width: 100%; height: auto;">
+        <p style="margin-bottom: 2rem;">
+          ORD-WM learns object-centric rigid dynamics for 3D world modeling in robotic manipulation.
+          It encodes object point clouds into geometry-aware 3D vector latent representations using an
+          SDF-supervised vector-neuron variational autoencoder, predicts action-conditioned object-wise
+          SE(3) motion increments, and analytically applies the predicted rigid transformations to the
+          current latent states. This separates persistent object geometry from pose changes and reduces
+          shape drift during multi-step rollouts.
+        </p> -->
+
+        <!-- <h2 class="title is-3">Results on Simulation and Real-World Tasks</h2>
+        <p style="margin-bottom: 1rem;">
+            We evaluate ORD-WM in both simulation and real-world manipulation scenarios, including multi-step prediction and closed-loop model predictive control.
+        </p> -->
+
+        <div style="display: none;">
+  
+        <!-- <figure style="text-align: center;">
+          <img id="result_libero"
+              src="./static/images/result_libero.png"
+              alt="Results on LIBERO"
+              style="width: 80%; height: auto;">
+
+          <figcaption class="has-text-centered is-size-6 has-text-grey">
+            Quantitative results on LIBERO benchmark.
+          </figcaption>
+        </figure>
+        <figure style="text-align: center;">
+          <img id="result_calvin"
+              src="./static/images/result_calvin.png"
+              alt="Results on CALVIN"
+              style="width: 60%; height: auto;">
+
+          <figcaption class="has-text-centered is-size-6 has-text-grey">
+            Quantitative results on CALVIN benchmark.
+          </figcaption>
+        </figure>
+        <figure style="text-align: center;">
+          <img id="result_realworld"
+              src="./static/images/result_real.png"
+              alt="Results on Real-World Tasks"
+              style="width: 35%; height: auto;">
+
+          <figcaption class="has-text-centered is-size-6 has-text-grey">
+            Quantitative results on Real-World Tasks.
+          </figcaption> -->
+        <!-- Table style -->
+        <style>
+          .table-section {
+            margin: 2.5rem 0;
+          }
+
+          .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem auto 0 auto;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            background: white;
+          }
+
+          .project-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            line-height: 1.45;
+            background: white;
+          }
+
+          .project-table th {
+            background: #f5f6f8;
+            font-weight: 700;
+            text-align: center;
+            padding: 0.85rem 0.9rem;
+            border-bottom: 2px solid #dcdfe6;
+            white-space: nowrap;
+          }
+
+          .project-table td {
+            padding: 0.75rem 0.9rem;
+            border-bottom: 1px solid #e8e8e8;
+            text-align: center;
+            white-space: nowrap;
+          }
+
+          .project-table td:first-child,
+          .project-table th:first-child {
+            text-align: left;
+          }
+
+          .project-table tbody tr:hover {
+            background: #fafafa;
+          }
+
+          .project-table .ours {
+            background: #f1f3f5;
+            /* font-weight: 700; */
+          }
+
+          .project-table .ours:hover {
+            background: #eceff2;
+          }
+
+          .table-caption {
+            margin-top: 0.9rem;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+          }
+
+          .table-title {
+            font-weight: 700;
+            color: #333;
+          }
+
+          .small-table {
+            max-width: 620px;
+          }
+        </style>
+
+
+        <!-- LIBERO table -->
+        <section class="table-section">
+          <div class="table-wrapper">
+            <table class="project-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Spatial (%)</th>
+                  <th>Object (%)</th>
+                  <th>Goal (%)</th>
+                  <th>Long (%)</th>
+                  <th>Average (%)</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Diffusion Policy <em>(scratch)</em></td>
+                  <td>78.3</td>
+                  <td>92.5</td>
+                  <td>68.3</td>
+                  <td>50.5</td>
+                  <td>72.4</td>
+                </tr>
+
+                <tr>
+                  <td>Octo <em>(finetuned)</em></td>
+                  <td>78.9</td>
+                  <td>85.7</td>
+                  <td>84.6</td>
+                  <td>51.1</td>
+                  <td>75.1</td>
+                </tr>
+
+                <tr>
+                  <td>OpenVLA <em>(finetuned)</em></td>
+                  <td>84.7</td>
+                  <td>88.4</td>
+                  <td>79.2</td>
+                  <td>53.7</td>
+                  <td>76.5</td>
+                </tr>
+
+                <tr>
+                  <td>&pi;<sub>0.5</sub> <em>(finetuned)</em></td>
+                  <td><strong>98.8</strong></td>
+                  <td>98.2</td>
+                  <td><strong>98.0</strong></td>
+                  <td>92.4</td>
+                  <td><strong>96.9</strong></td>
+                </tr>
+
+                <tr>
+                  <td>mimic-video <em>(scratch)</em></td>
+                  <td>94.2</td>
+                  <td>96.8</td>
+                  <td>90.6</td>
+                  <td>&ndash;</td>
+                  <td>93.9</td>
+                </tr>
+
+                <tr class="ours">
+                  <td><strong>ORD-WM</strong> <em>(ours, scratch)</em></td>
+                  <td><u>96.3</u></td>
+                  <td><u><strong>98.8</strong></u></td>
+                  <td><u>95.0</u></td>
+                  <td><u><strong>93.6</strong></u></td>
+                  <td><u>95.9</u></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-caption">
+            <span class="table-title">Table 1.</span>
+            Results on LIBERO. <em>finetuned</em> denotes models trained on large-scale external robot action data and then finetuned on the target benchmark;
+            <em>scratch</em> denotes models trained only on demonstrations from the target benchmark, without using additional robot action data.
+            <strong>Bold</strong> indicates the best result overall, and <u>underline</u> indicates the best result among <em>scratch</em> models.
+          </div>
+        </section>
+
+
+        <!-- CALVIN table -->
+        <section class="table-section">
+          <div class="table-wrapper">
+            <table class="project-table">
+              <thead>
+                <tr>
+                  <th rowspan="2">Method</th>
+                  <th rowspan="2">Splits</th>
+                  <th colspan="5">Success Rate (%)</th>
+                  <th rowspan="2">Avg. Len</th>
+                </tr>
+                <tr>
+                  <th>1/5</th>
+                  <th>2/5</th>
+                  <th>3/5</th>
+                  <th>4/5</th>
+                  <th>5/5</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Diffusion Policy</td>
+                  <td>ABC&rarr;D</td>
+                  <td>40.2</td>
+                  <td>12.3</td>
+                  <td>2.6</td>
+                  <td>0.8</td>
+                  <td>0.0</td>
+                  <td>0.56</td>
+                </tr>
+
+                <tr>
+                  <td>UniPi</td>
+                  <td>ABC&rarr;D</td>
+                  <td>56.0</td>
+                  <td>16.0</td>
+                  <td>8.0</td>
+                  <td>8.0</td>
+                  <td>4.0</td>
+                  <td>0.92</td>
+                </tr>
+
+                <tr>
+                  <td>OpenVLA</td>
+                  <td>ABC&rarr;D</td>
+                  <td>91.3</td>
+                  <td>77.8</td>
+                  <td>62.0</td>
+                  <td>52.1</td>
+                  <td>43.5</td>
+                  <td>3.27</td>
+                </tr>
+
+                <tr>
+                  <td>GR-1</td>
+                  <td>ABC&rarr;D</td>
+                  <td>85.4</td>
+                  <td>71.2</td>
+                  <td>59.6</td>
+                  <td>49.7</td>
+                  <td>40.1</td>
+                  <td>3.06</td>
+                </tr>
+
+                <tr>
+                  <td>VPP</td>
+                  <td>ABC&rarr;D</td>
+                  <td><strong>96.5</strong></td>
+                  <td>90.9</td>
+                  <td><strong>86.6</strong></td>
+                  <td><strong>82.0</strong></td>
+                  <td>76.9</td>
+                  <td><strong>4.33</strong></td>
+                </tr>
+
+                <tr class="ours">
+                  <td><strong>ORD-WM</strong></td>
+                  <td>ABC&rarr;D</td>
+                  <td>95.3</td>
+                  <td><strong>91.7</strong></td>
+                  <td>85.5</td>
+                  <td>80.2</td>
+                  <td><strong>77.1</strong></td>
+                  <td>4.30</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-caption">
+            <span class="table-title">Table 2.</span>
+            Results on CALVIN ABC&rarr;D in success rates and average task completion length.
+          </div>
+        </section>
+
+
+        <!-- Real-world table -->
+        <section class="table-section">
+          <div class="table-wrapper small-table">
+            <table class="project-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>PnP</th>
+                  <th>Cube</th>
+                  <th>Long</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Diffusion Policy</td>
+                  <td>30.0</td>
+                  <td>7.5</td>
+                  <td>0.0</td>
+                </tr>
+
+                <tr>
+                  <td>OpenVLA</td>
+                  <td>50.0</td>
+                  <td>32.5</td>
+                  <td>20.0</td>
+                </tr>
+
+                <tr class="ours">
+                  <td><strong>ORD-WM</strong></td>
+                  <td><strong>75.0</strong></td>
+                  <td><strong>65.0</strong></td>
+                  <td><strong>47.5</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-caption">
+            <span class="table-title">Table 3.</span>
+            Results on real-world tasks (% success rate).
+          </div>
+        </section>
+
+
+        </figure>
+          <p style="margin-bottom: 1rem;">
+            ORD-WM delivers strong results across simulation and real-world robotic manipulation benchmarks. 
+            It achieves the best scratch performance on LIBERO, competitive long-horizon performance on CALVIN ABC→D, 
+            and consistently outperforms Diffusion Policy and OpenVLA on real-world tasks. 
+            These results show that video-based world priors can be effectively distilled into a lightweight action policy without sacrificing performance.
+          </p>
+
+        <h3 class="title is-4" >What is actually distilled?</h3>
+        <figure style="text-align: center;">
+          <img id="similarity_map"
+              src="./static/images/similarity_map.png"
+              alt="Similarity heatmap"
+              style="width: 60%; height: auto;">
+
+          <figcaption class="has-text-centered is-size-6 has-text-grey">
+            Similarity heatmap.
+          </figcaption>
+        </figure>
+        <p style="margin-bottom: 1rem;">
+            The distilled action latent aligns more consistently with task-relevant regions 
+            in the teacher video latent, such as the gripper and manipulated objects. 
+            This suggests that action generation mainly relies on features from task-relevant and highly dynamic regions, 
+            while background regions are largely ignored during distillation. 
+            Notably, the highlighted regions also correspond well to task-relevant areas in the future images, 
+            suggesting that the action DiT captures future-aware world priors 
+            rather than merely reflecting the current observation. 
+            In contrast, the heatmaps read out from the baseline do not exhibit consistent similarity patterns, 
+            indicating that ORD-WM truly transfers latent knowledge from the video DiT into the action DiT, 
+            rather than merely allowing the Q-Former to fit the video latent.
+        </p>
+
+        <h3 class="title is-4" >Inference efficiency</h3>
+        <figure style="text-align: center;">
+          <img id="inference_efficiency"
+              src="./static/images/latency_bar.png"
+              alt="Inference efficiency"
+              style="width: 60%; height: auto;">
+
+          <figcaption class="has-text-centered is-size-6 has-text-grey">
+            Inference efficiency.
+          </figcaption>
+        </figure>
+        <p style="margin-bottom: 2rem;">
+            A key goal of ORD-WM is to retain the benefit of video-based world priors 
+            without incurring the overhead of an explicit video model at test time. 
+            To verify this, we compare inference latency across representative baselines on the same hardware platform, 
+            a compute node equipped with a single NVIDIA A100 40GB GPU. 
+            ORD-WM achieves the lowest average inference latency among all compared methods, 
+            requiring only 55\,ms per action prediction. 
+            In contrast, mimic-video, a WAM that retains explicit future imagination, 
+            incurs about 21X higher latency. 
+            This efficiency gain comes from discarding the video DiT entirely at inference time and deploying only an action model. 
+            Moreover, with a lightweight text encoder, ORD-WM requires only about 6 GB of GPU memory at deployment, 
+            which is an advantage in compute-constrained settings.
+        </p>
+
+        <h3 class="title is-4" >Ablation</h3>
+        <!-- <figure style="text-align: center;">
+          <img id="inference_efficiency"
+              src="./static/images/ablation.png"
+              alt="Ablation"
+              style="width: 35%; height: auto;">
+
+          <figcaption class="has-text-centered is-size-6 has-text-grey">
+            Ablation.
+          </figcaption>
+        </figure> -->
+        <!-- Ablation table -->
+        <section class="table-section">
+          <div class="table-wrapper small-table">
+            <table class="project-table">
+              <thead>
+                <tr>
+                  <th>Suite</th>
+                  <th>w/o distill.</th>
+                  <th>w/o PCA</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Spatial</td>
+                  <td>83.6 <span style="color: #b22222;">(-12.7)</span></td>
+                  <td>87.0 <span style="color: #b22222;">(-9.3)</span></td>
+                </tr>
+
+                <tr>
+                  <td>Object</td>
+                  <td>87.7 <span style="color: #b22222;">(-11.1)</span></td>
+                  <td>92.3 <span style="color: #b22222;">(-6.5)</span></td>
+                </tr>
+
+                <tr>
+                  <td>Goal</td>
+                  <td>85.9 <span style="color: #b22222;">(-9.1)</span></td>
+                  <td>90.2 <span style="color: #b22222;">(-4.8)</span></td>
+                </tr>
+
+                <tr>
+                  <td>Long</td>
+                  <td>80.5 <span style="color: #b22222;">(-13.1)</span></td>
+                  <td>84.8 <span style="color: #b22222;">(-8.8)</span></td>
+                </tr>
+
+                <tr>
+                  <td>Avg.</td>
+                  <td>85.2 <span style="color: #b22222;">(-11.5)</span></td>
+                  <td>88.6 <span style="color: #b22222;">(-7.3)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-caption">
+            <span class="table-title">Table 4.</span>
+            Ablation results on LIBERO, shown as performance <span style="color: #b22222;">drops</span> (%) relative to <strong>ORD-WM</strong>.
+          </div>
+        </section>
+
+        <p style="margin-bottom: 2rem;">
+            <!-- We compare the full model with two simplified variants:
+            <em>w/o distillation</em>, which removes the distillation loss and trains the action DiT only with the flow-matching objective,
+            and <em>w/o PCA</em>, which directly uses the original teacher latent without feature compression.
+            As shown in Table 1, both variants perform worse than the full model.
+            Removing distillation leads to a clear drop in performance, confirming that the compact teacher video latents provide useful supervision beyond standard action modeling.
+            Meanwhile, directly distilling the uncompressed teacher latent also degrades performance, suggesting that the raw teacher features are overly high-dimensional and noisy for effective transfer.
+            These results show that both the proposed distillation design and PCA-based compression are important for transferring control-relevant world priors into the action policy. -->
+            
+            we compare ORD-WM with two simplified variants: <em>w/o distillation</em>, 
+            which removes the distillation objective and trains the action DiT only with the flow-matching objective, 
+            and <em>w/o PCA</em>, which directly uses the original teacher latent without feature compression. 
+            Both variants perform worse than the full model. 
+            Removing distillation leads to a clear performance drop, confirming that the compact teacher video latents provide useful supervision beyond standard action modeling. 
+            Meanwhile, directly distilling the uncompressed teacher latent also degrades performance, 
+            suggesting that the raw teacher features are overly high-dimensional and noisy for effective transfer. 
+            These results show that both the proposed distillation design and PCA-based compression are important for transferring control-relevant world priors into the policy.
+          </p>
+        </div>
+        
+        <!-- Interpolating. -->
+        <!-- <h3 class="title is-4">Interpolating states</h3> -->
+        <!-- <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div> -->
+        <!-- <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_start.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+            <p>Start Frame</p>
+          </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
+            </div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="100" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_end.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+            <p class="is-bold">End Frame</p>
+          </div>
+        </div>
+        <br/> -->
+        <!--/ Interpolating. -->
+
+        <!-- Re-rendering. -->
+        <!-- <h3 class="title is-4">Re-rendering the input video</h3> -->
+        <!-- <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div> -->
+        <!-- <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="./static/videos/replay.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <!--/ Re-rendering. -->
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+
+    <!-- Concurrent Work. -->
+    <!-- <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related Links</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            There's a lot of excellent work that was introduced around the same time as ours.
+          </p>
+          <p>
+            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
+          </p>
+          <p>
+            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
+            both use deformation fields to model non-rigid scenes.
+          </p>
+          <p>
+            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
+          </p>
+          <p>
+            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
+          </p>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Concurrent Work. -->
+
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">Multi-step Rollout</h2>
+      <p class="rollout-note">Initialize from observations and roll out future object states.</p>
+      <style>
+        .task-rollouts {
+          display: flex;
+          flex-direction: column;
+          gap: 1.75rem;
+        }
+
+        .task-rollout-group {
+          background: rgba(255, 255, 255, 0.9);
+          border: 1px solid #d6d9de;
+          border-radius: 8px;
+          padding: 1.25rem;
+        }
+
+        .task-rollout-title {
+          margin-bottom: 0.85rem;
+        }
+
+        .rollout-note {
+          margin: -0.4rem 0 1.5rem 0;
+          color: #555;
+          font-size: 1rem;
+        }
+
+        .task-rollout-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 14px;
+          align-items: start;
+        }
+
+        .realworld-rollout-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .results-card {
+          overflow: hidden;
+          border: 1px solid #bbb;
+          border-radius: 8px;
+          background: #fff;
+          min-width: 0;
+        }
+
+        .results-card video {
+          display: block;
+          width: 100%;
+          height: auto;
+          margin: 0;
+          background: #000;
+        }
+
+        .results-card p {
+          margin: 0;
+          font-size: 0.82rem;
+        }
+
+        .empty-rollout {
+          color: #666;
+          font-size: 0.95rem;
+          margin: 0;
+        }
+
+        @media screen and (max-width: 640px) {
+          .task-rollout-group {
+            padding: 1rem;
+          }
+
+          .task-rollout-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      </style>
+      <div class="task-rollouts">
+        <div class="task-rollout-group">
+          <h3 class="title is-4 task-rollout-title">LIBERO</h3>
+          <div class="task-rollout-grid">
+            <div class="results-card">
+              <video id="libero-kitchen-stove-moka-pot" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/libero-rollout/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it_demo_pcd__demo_24.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="results-card">
+              <video id="libero-living-room-basket" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/libero-rollout/LIVING_ROOM_SCENE1_put_both_the_alphabet_soup_and_the_cream_cheese_box_in_the_basket_demo_pcd__demo_15.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="results-card">
+              <video id="libero-black-bowl-cookie-box" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/libero-rollout/pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate_demo_pcd__demo_1.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="results-card">
+              <video id="libero-black-bowl-drawer" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/libero-rollout/pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate_demo_pcd__demo_0.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="results-card">
+              <video id="libero-wine-bottle-rack" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/libero-rollout/put_the_wine_bottle_on_the_rack_demo_pcd__demo_5.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="results-card">
+              <video id="libero-chocolate-pudding-basket" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/libero-rollout/pick_up_the_chocolate_pudding_and_place_it_in_the_basket_demo_pcd__demo_10.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-rollout-group">
+          <h3 class="title is-4 task-rollout-title">Real World</h3>
+          <div class="task-rollout-grid realworld-rollout-grid">
+            <div class="results-card">
+              <video id="realworld-livingroom" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/realworld-rollout/demo4_real_livingroom1_side_by_side_10fps.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="results-card">
+              <video id="realworld-push" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/realworld-rollout/demo5_real_push_side_by_side_10fps.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">MPC</h2>
+      <p class="rollout-note">Plan with ORD-WM rollouts and execute the first action.</p>
+      <div class="task-rollouts">
+        <div class="task-rollout-group">
+          <h3 class="title is-4 task-rollout-title">LIBERO</h3>
+          <div class="task-rollout-grid">
+            <div class="results-card">
+              <video id="libero-mpc-overlay-1" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/libero-mpc/mpc_trajectory_overlay1.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="results-card">
+              <video id="libero-mpc-overlay-2" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/libero-mpc/mpc_trajectory_overlay2.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="results-card">
+              <video id="libero-mpc-overlay-3" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/libero-mpc/mpc_trajectory_overlay3.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="results-card">
+              <video id="libero-mpc-overlay-4" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/libero-mpc/mpc_trajectory_overlay4.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-rollout-group">
+          <h3 class="title is-4 task-rollout-title">Real World</h3>
+          <div class="task-rollout-grid realworld-rollout-grid">
+            <div class="results-card">
+              <video id="realworld-mpc-overlay-1" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/realworld-mpc/mpc_overlay_png1.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="results-card">
+              <video id="realworld-mpc-overlay-2" controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/realworld-mpc/mpc_overlay_png2.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <!-- <pre><code>@article{anonymous2026ordwm,
+  author    = {Anonymous Authors},
+  title     = {ORD-WM: Learning Object-Centric Rigid Dynamics for 3D World Modeling in Robotic Manipulation},
+  year      = {2026},
+}</code></pre> -->
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is based on the <a href="https://github.com/nerfies/nerfies.github.io">nerfies template</a>, and is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <!-- <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
